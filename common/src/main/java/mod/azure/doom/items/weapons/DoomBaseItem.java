@@ -270,20 +270,24 @@ public abstract class DoomBaseItem extends Item implements GeoItem {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.argent_bolt_damage);
                 ((BulletEntity) bullet).setParticle(3);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case DGAUSS -> {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.argent_bolt_damage);
                 ((BulletEntity) bullet).setParticle(4);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case BFG, BFG9000 -> {
                 bullet = CommonUtils.createBFG(level, player);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 0.75F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case CHAINGUN -> {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.chaingun_bullet_damage);
                 ((BulletEntity) bullet).setParticle(2);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case DPLASMA, PLAMSA -> {
                 if (itemStack.getTag() != null && itemStack.getTag().getBoolean("isAltFiring")) {
@@ -308,6 +312,7 @@ public abstract class DoomBaseItem extends Item implements GeoItem {
                     bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), getFiringSound(),
                             SoundSource.PLAYERS, 0.25F, 1.3F);
+                    level.addFreshEntity(bullet);
                 }
             }
             case DSHOTGUN -> {
@@ -319,22 +324,26 @@ public abstract class DoomBaseItem extends Item implements GeoItem {
                     player.getCooldowns().addCooldown(this, 30);
                     level.playSound(null, player.getX(), player.getY(), player.getZ(),
                             Services.SOUNDS_HELPER.getHEAVY_CANNON(), SoundSource.PLAYERS, 0.25F, 1.3F);
+                    level.addFreshEntity(bullet);
                 } else {
                     bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.bullet_damage);
                     ((BulletEntity) bullet).setParticle(2);
                     bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), getFiringSound(),
                             SoundSource.PLAYERS, 0.25F, 1.3F);
+                    level.addFreshEntity(bullet);
                 }
             }
             case SHOTGUN -> {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.shotgun_damage);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case PISTOL -> {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.bullet_damage);
                 ((BulletEntity) bullet).setParticle(1);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case HEAVYCANNON -> {
                 if (itemStack.getTag() != null && itemStack.getTag().getBoolean("isAltFiring")) {
@@ -345,17 +354,20 @@ public abstract class DoomBaseItem extends Item implements GeoItem {
                     itemStack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), getFiringSound(),
                             SoundSource.PLAYERS, 0.25F, 1.3F);
+                    level.addFreshEntity(bullet);
                 } else {
                     bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.bullet_damage);
                     ((BulletEntity) bullet).setParticle(2);
                     bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), getFiringSound(),
                             SoundSource.PLAYERS, 0.25F, 1.3F);
+                    level.addFreshEntity(bullet);
                 }
             }
             case ROCKETLAUNCHER -> {
                 bullet = CommonUtils.createRocket(level, itemStack, player);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 0.75F, 1.0F);
+                level.addFreshEntity(bullet);
             }
             case SUPERSHOTGUN -> {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.shotgun_damage);
@@ -368,11 +380,13 @@ public abstract class DoomBaseItem extends Item implements GeoItem {
                         mod.azure.azurelib.platform.Services.PLATFORM.getIncendairyenchament(), itemStack) > 0)
                     bullet2.setSecondsOnFire(100);
                 level.addFreshEntity(bullet2);
+                level.addFreshEntity(bullet);
             }
             case UNMAKER, UNMAYKR -> {
                 bullet = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.unmaykr_damage);
                 ((BulletEntity) bullet).setParticle(5);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
+                level.addFreshEntity(bullet);
 
                 var bullet1 = CommonUtils.createBullet(level, itemStack, player, MCDoom.config.unmaykr_damage);
                 bullet1.shootFromRotation(player, player.getXRot(), player.getYRot() + 10, 0.0F, 3.0F, 1.0F);
@@ -395,7 +409,6 @@ public abstract class DoomBaseItem extends Item implements GeoItem {
                 bullet.setSecondsOnFire(100);
             if (this.getGunTypeEnum() != GunTypeEnum.BFG && this.getGunTypeEnum() != GunTypeEnum.DPLASMA)
                 bullet.moveTo(player.getX(), player.getY(0.5), player.getZ(), 0, 0);
-            level.addFreshEntity(bullet);
         }
         if (gunTypeEnum != GunTypeEnum.PLAMSA)
             this.triggerAnim(player, GeoItem.getOrAssignId(itemStack, (ServerLevel) player.level()),

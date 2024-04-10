@@ -107,23 +107,26 @@ public class BulletEntity extends AbstractArrow {
         this.pickup = Pickup.DISALLOWED;
         CommonUtils.setOnFire(this);
         if (this.level().isClientSide()) {
-            if (this.useParticle() == 1) this.level().addParticle(Services.PARTICLES_HELPER.getPISTOL(), true,
-                    this.getX() + (this.random.nextDouble()) * this.getBbWidth() * 0.5D, this.getY(),
-                    this.getZ() + (this.random.nextDouble()) * this.getBbWidth() * 0.5D, 0, 0, 0);
-            if (this.useParticle() == 2) this.level().addParticle(ParticleTypes.SMOKE, true,
-                    this.getX() + (this.random.nextDouble()) * this.getBbWidth() * 0.5D, this.getY(),
-                    this.getZ() + (this.random.nextDouble()) * this.getBbWidth() * 0.5D, 0, 0, 0);
-            if (this.useParticle() == 3 || this.useParticle() == 7 || this.useParticle() == 8)
-                this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, true, this.getX(), this.getY(), this.getZ(), 0,
-                        0, 0);
-            if (this.useParticle() == 4)
-                this.level().addParticle(ParticleTypes.FLASH, true, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
-            if (this.useParticle() == 5) level().addParticle(Services.PARTICLES_HELPER.getUNMAYKR(), true,
-                    this.getX() + random.nextDouble() * getBbWidth() * 0.5D, this.getY(),
-                    this.getZ() + random.nextDouble() * getBbWidth() * 0.5D, 0, 0, 0);
-            if (this.useParticle() == 6) level().addParticle(Services.PARTICLES_HELPER.getPLASMA(), true,
-                    this.getX() + (random.nextDouble() * 2.0D - 1.0D) * getBbWidth() * 0.5D, this.getY(),
-                    this.getZ() + (random.nextDouble() * 2.0D - 1.0D) * getBbWidth() * 0.5D, 0, 0, 0);
+            var x = this.getX() + (this.random.nextDouble()) * this.getBbWidth() * 0.5D;
+            var z = this.getZ() + (this.random.nextDouble()) * this.getBbWidth() * 0.5D;
+            if (this.useParticle() == 1) {
+                this.level().addParticle(Services.PARTICLES_HELPER.getPISTOL(), true, x, this.getY(1), z, 0, 0, 0);
+            }
+            if (this.useParticle() == 2) {
+                this.level().addParticle(ParticleTypes.SMOKE, true, x, this.getY(1), z, 0, 0, 0);
+            }
+            if (this.useParticle() == 3 || this.useParticle() == 7 || this.useParticle() == 8) {
+                this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, true, x, this.getY(1), z, 0, 0, 0);
+            }
+            if (this.useParticle() == 4) {
+                this.level().addParticle(ParticleTypes.FLASH, true, x, this.getY(1), z, 0, 0, 0);
+            }
+            if (this.useParticle() == 5) {
+                level().addParticle(Services.PARTICLES_HELPER.getUNMAYKR(), true, x, this.getY(1), z, 0, 0, 0);
+            }
+            if (this.useParticle() == 6) {
+                this.level().addParticle(Services.PARTICLES_HELPER.getPLASMA(), true, x, this.getY(1), z, 0, 0, 0);
+            }
         }
         if (!this.level().isClientSide()) this.attachTimer++;
         if (!this.isPassenger() && this.attachTimer >= 20 && this.useParticle() == 7) {
