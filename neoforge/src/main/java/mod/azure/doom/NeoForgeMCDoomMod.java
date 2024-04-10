@@ -36,15 +36,12 @@ public final class NeoForgeMCDoomMod {
     public static final Tier DOOM_HIGHTEIR = TierSortingRegistry.registerTier(
             new ForgeTier(17, 0, 30, -1.9F, 0, ARGENT_TAG, () -> Ingredient.of(NeoDoomItems.ARGENT_BLOCK.get())),
             MCDoom.modResource("doom_highertier"), List.of(Tiers.NETHERITE), List.of());
-    public static NeoForgeMCDoomMod instance;
 
 
     public NeoForgeMCDoomMod() {
-        instance = this;
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MCDoom.config = AzureLibMod.registerConfig(DoomConfig.class, ConfigFormats.json()).getConfigInstance();
-        if (MCDoom.config.enable_soulcube_effects)
-            MinecraftForge.EVENT_BUS.register(new SoulCubeHandler());
+        if (MCDoom.config.enable_soulcube_effects) MinecraftForge.EVENT_BUS.register(new SoulCubeHandler());
         modEventBus.addListener(this::setup);
         if (MCDoom.config.enable_all_villager_trades)
             MinecraftForge.EVENT_BUS.addListener(DoomVillagerTrades::onVillagerTradesEvent);
