@@ -12,18 +12,15 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import java.util.*;
 
-public class DoomEquipmentUtils {
+public record DoomEquipmentUtils() {
     public static String TAG = "doomguntag";
 
     public static boolean ruinedItemHasEnchantment(ItemStack ruinedItem, Enchantment enchantment) {
-        if (ruinedItem.getTag() == null)
-            return false;
+        if (ruinedItem.getTag() == null) return false;
         final var enchantMap = DoomEquipmentUtils.processEncodedEnchantments(ruinedItem.getTag().getString(TAG));
-        if (enchantMap == null)
-            return false;
+        if (enchantMap == null) return false;
         for (final Enchantment e : enchantMap.keySet())
-            if (e == enchantment)
-                return true;
+            if (e == enchantment) return true;
         return false;
     }
 
@@ -45,20 +42,19 @@ public class DoomEquipmentUtils {
         final var repaired = new ItemStack(FabricDoomItems.getItemMap().get(leftStack.getItem()));
         final var tag = leftStack.getOrCreateTag();
         final var encodedEnch = tag.getString(TAG);
-        if (!encodedEnch.isEmpty())
-            tag.remove(TAG);
+        if (!encodedEnch.isEmpty()) tag.remove(TAG);
         final var enchantMap = DoomEquipmentUtils.processEncodedEnchantments(encodedEnch);
-        if (enchantMap != null)
+        if (enchantMap != null) {
             for (final Map.Entry<Enchantment, Integer> enchant : enchantMap.entrySet())
                 repaired.enchant(enchant.getKey(), enchant.getValue());
+        }
         repaired.setTag(repaired.getOrCreateTag().merge(tag));
         repaired.setDamageValue(targetDamage);
         return repaired;
     }
 
     public static Map<Enchantment, Integer> processEncodedEnchantments(String encodedEnchants) {
-        if (encodedEnchants.isEmpty())
-            return Collections.emptyMap();
+        if (encodedEnchants.isEmpty()) return Collections.emptyMap();
         final Map<Enchantment, Integer> enchants = new HashMap<>();
         for (final var encodedEnchant : encodedEnchants.split(",")) {
             final var enchantItem = encodedEnchant.split(">");
@@ -74,15 +70,11 @@ public class DoomEquipmentUtils {
             if (isVanillaItemStackBreaking(breakingStack, itemMap.getValue())) {
                 final var ruinedStack = new ItemStack(itemMap.getKey());
                 final var breakingNBT = breakingStack.getOrCreateTag();
-                if (breakingNBT.contains("Damage"))
-                    breakingNBT.remove("Damage");
-                if (breakingNBT.contains("RepairCost"))
-                    breakingNBT.remove("RepairCost");
+                if (breakingNBT.contains("Damage")) breakingNBT.remove("Damage");
+                if (breakingNBT.contains("RepairCost")) breakingNBT.remove("RepairCost");
                 final var enchantTag = getTagForEnchantments(breakingStack, ruinedStack);
-                if (enchantTag != null)
-                    breakingNBT.merge(enchantTag);
-                if (breakingNBT.contains("Enchantments"))
-                    breakingNBT.remove("Enchantments");
+                if (enchantTag != null) breakingNBT.merge(enchantTag);
+                if (breakingNBT.contains("Enchantments")) breakingNBT.remove("Enchantments");
                 ruinedStack.setTag(breakingNBT);
                 serverPlayer.getInventory().placeItemBackInInventory(ruinedStack);
             }
@@ -96,8 +88,7 @@ public class DoomEquipmentUtils {
         }
         if (!enchantmentStrings.isEmpty()) {
             var tag = ruinedStack.getTag();
-            if (tag == null)
-                tag = new CompoundTag();
+            if (tag == null) tag = new CompoundTag();
             tag.putString(TAG, String.join(",", enchantmentStrings));
             return tag;
         }
