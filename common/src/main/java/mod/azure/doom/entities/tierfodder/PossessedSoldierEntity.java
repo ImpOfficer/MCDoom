@@ -6,6 +6,7 @@ import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager.ControllerRegistrar;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.object.PlayState;
+import mod.azure.azurelib.platform.Services;
 import mod.azure.azurelib.util.AzureLibUtil;
 import mod.azure.doom.MCDoom;
 import mod.azure.doom.entities.DemonEntity;
@@ -273,7 +274,7 @@ public class PossessedSoldierEntity extends DemonEntity implements SmartBrainOwn
     public void tick() {
         super.tick();
         if (this.getPlasmaHits() >= 8 && this.getVariant() == 3 && this.isAlive()) this.explode(this);
-        if (!this.level().isClientSide() && this.getVariant() == 3 && this.isAlive())
+        if (!this.level().isClientSide() && this.getVariant() == 3 && this.isAlive() && Services.PLATFORM.isDevelopmentEnvironment())
             AzureLib.LOGGER.info(this.getPlasmaHits());
     }
 
