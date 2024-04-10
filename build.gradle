@@ -104,11 +104,11 @@ subprojects {
         }
     }
 
-    tasks.register('optimisePng', com.matyrobbrt.gradle.pngoptimiser.task.OptimisePNGTask) {
-        file(project.fileTree(dir: file('common/src/main/resources/assets/doom/textures'), includes: ['**/*.png'])) // Optimise all png files in the `assets` directory
-        option 'o', 6 // Use optimisation of type 6
-        backupOldFiles() // Backup the png files before optimising them
-    }
+//    tasks.register('optimisePng', com.matyrobbrt.gradle.pngoptimiser.task.OptimisePNGTask) {
+//        file(project.fileTree(dir: file('common'), includes: ['**/*.png'])) // Optimise all png files in the `assets` directory
+//        option 'o', 6 // Use optimisation of type 6
+//        backupOldFiles() // Backup the png files before optimising them
+//    }
 
     // Disables Gradle's custom module metadata from being published to maven. The
     // metadata includes mapped dependencies which are not reasonably consumable by
