@@ -1,5 +1,8 @@
-v7.0.9
-*** Final 1.20.1 version to be pushed. Moving to 1.20.4 NeoForge/Fabric ***
+v7.0.10
+*** Moving to 1.20.4 NeoForge/Fabric from this update ***
 
-- Network tweaking for crashing (Fabric).
-- Fixes Cueball walking animation.
+- Fixes Fabric ID field.
+- Fixes Fabric Author field
+- Fixes Logger running outside of dev
+- Makes the Microwave beam use Plasma gun ammo
+- Linting of code done/updated to latest of all dependinces. 
