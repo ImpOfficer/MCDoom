@@ -9,6 +9,8 @@ import mod.azure.azurelib.util.AzureLibUtil;
 import mod.azure.doom.MCDoom;
 import mod.azure.doom.entities.tierboss.DoomBoss;
 import mod.azure.doom.helper.PlayerProperties;
+import mod.azure.doom.items.enums.GunTypeEnum;
+import mod.azure.doom.items.weapons.DoomBaseItem;
 import mod.azure.doom.platform.Services;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -248,6 +250,9 @@ public class MeatHookEntity extends AbstractArrow implements GeoEntity {
         }
         if (hookedEntity != null && this.attachTimer >= (((LivingEntity) hookedEntity).getHealth()) && this.getVariant() == 1) {
             this.explode(hookedEntity);
+            if (owner.getUseItem().getItem() instanceof DoomBaseItem gun && gun.getGunTypeEnum() == GunTypeEnum.PLAMSA)
+                owner.getMainHandItem().hurtAndBreak((int) (((LivingEntity) hookedEntity).getMaxHealth() * 0.5), owner,
+                        s -> owner.broadcastBreakEvent(owner.getUsedItemHand()));
             if (!level().isClientSide()) {
                 ((PlayerProperties) owner).setHasMeatHook(false);
             }
