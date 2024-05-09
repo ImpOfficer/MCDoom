@@ -101,7 +101,7 @@ public class RocketMobEntity extends AbstractHurtingProjectile implements GeoEnt
     protected void explode() {
         level().getEntitiesOfClass(LivingEntity.class, new AABB(blockPosition().above()).inflate(4)).forEach(e -> {
             if (!(e instanceof DemonEntity)) {
-                e.hurt(damageSources().sonicBoom(this), directHitDamage);
+                e.hurt(damageSources().onFire(), directHitDamage);
             }
         });
     }
