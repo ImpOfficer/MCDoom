@@ -24,21 +24,10 @@ public class MicroMissilesEnchantment extends Enchantment {
     }
 
     @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isTradeable() {
-        return true;
-    }
-
-    @Override
     public boolean canEnchant(ItemStack stack) {
-        return (stack.getItem() instanceof DoomBaseItem gunItem && gunItem.getGunTypeEnum() == GunTypeEnum.HEAVYCANNON) ? true : false;
+        if (!(stack.getItem() instanceof DoomBaseItem gunItem))
+            return false;
+        return gunItem.getGunTypeEnum() == GunTypeEnum.HEAVYCANNON;
     }
 
-    public boolean isDiscoverable() {
-        return true;
-    }
 }

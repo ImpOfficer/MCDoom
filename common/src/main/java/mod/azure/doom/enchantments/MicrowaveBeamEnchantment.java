@@ -24,21 +24,14 @@ public class MicrowaveBeamEnchantment extends Enchantment {
     }
 
     @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isTradeable() {
-        return true;
-    }
-
-    @Override
     public boolean canEnchant(ItemStack stack) {
-        return (stack.getItem() instanceof DoomBaseItem gunItem && (gunItem.getGunTypeEnum() == GunTypeEnum.PLAMSA || gunItem.getGunTypeEnum() == GunTypeEnum.DPLASMA)) ? true : false;
+        if (!(stack.getItem() instanceof DoomBaseItem gunItem))
+            return false;
+        if (gunItem.getGunTypeEnum() == GunTypeEnum.PLAMSA)
+            return true;
+        if (gunItem.getGunTypeEnum() == GunTypeEnum.DPLASMA)
+            return false;
+        return false;
     }
 
-    public boolean isDiscoverable() {
-        return true;
-    }
 }
